@@ -15,7 +15,7 @@ const client = redis.createClient({
 app.get("/rickR", async (req, res)=>{
     const checkRedis = await client.get("rickApi")                                  // Intentamos obtener desde el servidor de Redis
     if(checkRedis) return res.json(JSON.parse(checkRedis))                          // Si encuentra algo guardado con la clave "rickApi", si lo encuentra, nos retorna el valor
-    const {data} = await axios.get("https://rickandmortyapi.com/api/character")     // Si no se encuentra la clave, se ejecutará esta linea y se hará una solicitud la PokeApi
+    const {data} = await axios.get("https://rickandmortyapi.com/api/character")     // Si no se encuentra la clave, se ejecutará esta linea y se hará una solicitud la RickAndMortyApi
     await client.set("rickApi", JSON.stringify(data))                               // Guardamos los datos obtenidos en la anterior consulta con la clave "rickApi"
     return res.json(data)                                                           // Devolvemos la respuesta
 })
